@@ -69,7 +69,7 @@ Puppet::Type.type(:git_deploy_key).provide(:gitlab) do
     project_id = get_project_id
 
     sshkey_hash = Hash.new
-    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys"
+    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys?per_page=50"
 
     response = api_call('GET', url)
 
@@ -115,7 +115,7 @@ Puppet::Type.type(:git_deploy_key).provide(:gitlab) do
 
     keys_hash = Hash.new
 
-    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys"
+    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys?per_page=50"
 
     response = api_call('GET', url)
 
@@ -138,7 +138,7 @@ Puppet::Type.type(:git_deploy_key).provide(:gitlab) do
   def create
     project_id = get_project_id
 
-    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys"
+    url = "#{gms_server}/api/v4/projects/#{project_id}/deploy_keys?per_page=50"
 
     begin
       response = api_call('POST', url, {'title' => resource[:name].strip, 'key' => File.read(resource[:path].strip)})
